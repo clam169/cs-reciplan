@@ -1,0 +1,80 @@
+@page "/recipedetails/{id}"
+
+<PageTitle>Recipe Details Page</PageTitle>
+
+@using RecipeApp.Data
+
+@if (recipe == null)
+{
+    <h1>WAITING</h1>
+}
+else
+{
+
+    <h1>Recipe Details for @recipe.Title</h1>
+
+
+
+    <p>Description: @recipe.Description </p>
+    <p></p>
+    <br>
+
+    <p>List of Ingredients: @recipe.Ingredients</p>
+
+    <br>
+
+    <p>Steps: @recipe.Steps </p>
+
+    <br>
+
+    <img src="@recipe.Image" alt="pic of food">
+
+    <button>Add to meal plan +</button>
+}
+@code {
+    @* DotEnv.Load(); *@
+    <!-- List<Recipe> Recipes = new List<Recipe>();
+    protected override async Task OnInitializedAsync() -->
+    <!-- {
+    await RefreshRecipes();
+    }
+
+    private async Task RefreshRecipes()
+    {
+    Recipes = await service.GetRecipeAsync();
+    }
+
+    public Recipe NewRecipe { get; set; } = new Recipe();
+    private async Task AddNewRecipe()
+    {
+    await service.AddRecipeAsync(NewRecipe);
+    NewRecipe = new Recipe();
+    await RefreshRecipes();
+    }
+
+    Recipe UpdateRecipe = new Recipe();
+    private void SetRecipeForUpdate(Recipe Recipe)
+    {
+    UpdateRecipe = Recipe;
+    }
+
+    private async Task UpdateRecipeData()
+    {
+    await service.UpdateRecipeAsync(UpdateRecipe);
+    await RefreshRecipes();
+    }
+
+    private async Task DeleteRecipe(Recipe Recipe)
+    {
+    await service.DeleteRecipeAsync(Recipe);
+    await RefreshRecipes();
+    }  -->
+
+
+    Recipe? recipe;
+
+    [Parameter]
+    public string? Id { get; set; }
+
+
+}

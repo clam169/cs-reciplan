@@ -1,9 +1,20 @@
-﻿@page "/"
+@page "/"
+@using RecipeApp.Components
+@using RecipeApp.Data
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Result Page</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>Results Page</h1>
 
-Welcome to your new app.
+<p>Here are some randome recipes with your ingredients</p>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<div class="d-flex justify-content-around">
+  <RecipeCard></RecipeCard>
+  <RecipeCard></RecipeCard>
+  <RecipeCard></RecipeCard>
+</div>
+
+
+@code {
+
+}

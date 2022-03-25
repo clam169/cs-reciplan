@@ -1,0 +1,17 @@
+<div class="recipie-card">
+    <div class="card" style="width: 20rem;">
+        <img src="@imageUrl" alt="Recipe Image" class="card-img-top">
+        <div class="card-body">
+            <h5 class="card-title">@recipeName</h5>
+            <p class="card-text">@recipeDescription</p>
+            <a href="/favourites" class="btn btn-primary">@btnText</a>
+        </div>
+    </div>
+</div>
+
+@code {
+    private string imageUrl = "https://hips.hearstapps.com/hmg-prod/images/delish-bucatinipasta-028-ls-1607552701.jpg";
+    private string recipeName = "Pasta";
+    private string recipeDescription = "Yummy pasta";
+    public string btnText = "Add to favourites";
+}
