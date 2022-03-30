@@ -74,8 +74,8 @@ namespace RecipeApp.Data
                 }
             }
 
-            var data = getIngredients().ToArray();
-            context.Ingredients!.AddRange(data);
+            // var data = getIngredients().ToArray();
+            // context.Ingredients!.AddRange(data);
             context.SaveChanges();
         }
 

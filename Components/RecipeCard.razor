@@ -4,14 +4,17 @@
         <div class="card-body">
             <h5 class="card-title">@recipeName</h5>
             <p class="card-text">@recipeDescription</p>
-            <a href="/favourites" class="btn btn-primary">@btnText</a>
+
         </div>
     </div>
 </div>
 
 @code {
-    private string imageUrl = "https://hips.hearstapps.com/hmg-prod/images/delish-bucatinipasta-028-ls-1607552701.jpg";
-    private string recipeName = "Pasta";
-    private string recipeDescription = "Yummy pasta";
-    public string btnText = "Add to favourites";
+    [Parameter]
+    public string imageUrl { get; set; }
+    [Parameter]
+    public string recipeName { get; set; }
+    [Parameter]
+    public string recipeDescription { get; set; }
+
 }

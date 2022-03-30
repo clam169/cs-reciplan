@@ -6,7 +6,7 @@ namespace RecipeApp.Models
   {
     public int WeekPlanId { get; set; }
     [ForeignKey("ApplicationUser")]
-    public string Id { get; set; }
+    public string? Id { get; set; }
     public List<Recipe>? Monday { get; set; }
     public List<Recipe>? Tuesday { get; set; }
     public List<Recipe>? Wednesday { get; set; }

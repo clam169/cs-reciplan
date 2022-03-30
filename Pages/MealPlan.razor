@@ -1,0 +1,53 @@
+﻿@page "/meal-plan"
+
+@using RecipeApp.Data
+@using RecipeApp.Models
+@using RecipeApp.Components
+@inject RecipeService recipeService
+
+
+<PageTitle>Meal Plan</PageTitle>
+
+
+<h1>Meal Plan</h1>
+<form>
+    <select name="" id="">
+        @foreach (var item in recipes)
+        {
+            <option value="@item.Title">@item.Title</option>
+        }
+
+    </select>
+
+    <select name="" id="">
+        <option value="sunday">Sunday</option>
+        <option value="monday">Monday</option>
+        <option value="tuesday">Tuesday</option>
+        <option value="wednesday">Wednesday</option>
+        <option value="thursday">Thursday</option>
+        <option value="friday">Friday</option>
+        <option value="saturday">Saturday</option>
+    </select>
+    <button type="submit">+Add to Meal Plan</button>
+</form>
+<div>
+    <h3>Day of week</h3>
+    <div class=recipe-card-container>
+    </div>
+</div>
+
+@code {
+
+    List<Recipe>? recipes;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await load();
+    }
+
+    protected async Task load()
+    {
+        recipes = await recipeService.GetRecipesAsync();
+    }
+
+}

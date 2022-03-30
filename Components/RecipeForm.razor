@@ -1,0 +1,44 @@
+@using Microsoft.AspNetCore.Identity
+@inject RecipeService recipeService
+
+<form>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="">Title:</label><input type="text" @bind="@title"><br>
+            <label for="">Image (url):</label><input type="text" @bind="@image"><br>
+            <label for="">Ingredients:</label><input type="text" @bind="@ingredients"><br>
+            <label for="">Description:</label><input type="text" @bind="@description"><br>
+            <div class="form-group">
+                <label for=""></label> Steps: <input type="text" name="steps" @bind="@steps" />
+                <button @onclick="@Add" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+@code {
+    string title;
+    string description;
+    string image;
+    string steps;
+    string ingredients;
+
+
+    protected async Task Add()
+    {
+        // create new object to insert
+        Recipe r = new Recipe()
+        {
+            Id = "string",
+            Title = title,
+            Description = description,
+            Image = image,
+            Steps = steps,
+            Ingredients = ingredients
+        };
+        // call the function that will add recipe to db
+
+        await recipeService.InsertRecipeAsync(r);
+
+    }
+}

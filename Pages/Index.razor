@@ -1,20 +1,101 @@
 @page "/"
 @using RecipeApp.Components
 @using RecipeApp.Data
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@inject RecipeService recipeService
 
-<PageTitle>Result Page</PageTitle>
+<PageTitle>ReciPlan</PageTitle>
+@* @if (SignInManager.IsSignedIn(User))
+  {
+  <li class="nav-item">
+  <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello
+  @User.Identity?.Name!</a>
+  </li>
+  <li class="nav-item">
+  <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/" method="post">
+  <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+  </form>
+  </li>
+  } *@
 
-<h1>Results Page</h1>
+<h1>Home Page</h1>
+@if (recipes.Count == 0)
+@* {
+  <p><em>Loading...</em></p>
+  }
+  else if (recipes.Count == 0) *@
+{
 
-<p>Here are some randome recipes with your ingredients</p>
+  <h3>Add your First Recipe</h3>
 
-<div class="d-flex justify-content-around">
-  <RecipeCard></RecipeCard>
-  <RecipeCard></RecipeCard>
-  <RecipeCard></RecipeCard>
+  <RecipeForm />
+
+}
+else
+{
+
+  <button class="btn btn-primary" @onclick="@Toggle">Add a New Recipe</button>
+  <div hidden="@HideForm">
+    <RecipeForm />
+  </div>
+
+  <p>Here are your recipes from the db</p>
+  @foreach (var recipe in recipes)
+  {
+    <RecipeCard imageUrl=@recipe.Image recipeName=@recipe.Title recipeDescription=@recipe.Description></RecipeCard>
+  }
+  <div class="d-flex justify-content-around">
+
+
 </div>
+}
+
 
 
 @code {
+  string title;
+  string description;
+  string image;
+  string steps;
+  string ingredients;
 
+  List<Recipe> recipes;
+
+
+
+  protected override async Task OnInitializedAsync()
+  {
+    await load();
+  }
+
+  protected async Task load()
+  {
+    recipes = await recipeService.GetRecipesAsync();
+  }
+
+  protected async Task AddRecipe()
+  {
+    // create new object to insert
+    Recipe r = new Recipe()
+    {
+      Id = "string",
+      Title = title,
+      Description = description,
+      Image = image,
+      Steps = steps,
+      Ingredients = ingredients
+    };
+    // call the function that will add recipe to db
+
+    await recipeService.InsertRecipeAsync(r);
+
+  }
+
+  private bool HideForm { get; set; } = true;
+  private void Toggle()
+  {
+    HideForm = !HideForm;
+  }
 }

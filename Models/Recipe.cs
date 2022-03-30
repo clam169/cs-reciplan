@@ -8,7 +8,7 @@ namespace RecipeApp.Models
     [Key]
     public int RecipeId { get; set; }
     [ForeignKey("ApplicationUser")]
-    public string Id { get; set; }
+    public string? Id { get; set; }
     [Required]
     [Display(Name = "Recipe Title")]
     public string? Title { get; set; }
@@ -19,6 +19,6 @@ namespace RecipeApp.Models
     [Required]
     public string? Steps { get; set; }
     [Required]
-    public string Ingredients { get; set; }
+    public string? Ingredients { get; set; }
   }
 }
