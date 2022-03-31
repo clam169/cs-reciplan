@@ -21,7 +21,7 @@
   } *@
 
 <h1>Home Page</h1>
-@if (recipes.Count == 0)
+@if (recipes == null || recipes.Count == 0)
 @* {
   <p><em>Loading...</em></p>
   }
