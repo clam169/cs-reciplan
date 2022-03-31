@@ -11,8 +11,8 @@ using RecipeApp.Data;
 namespace RecipeApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220325020843_Ingredient")]
-    partial class Ingredient
+    [Migration("20220331232041_M1")]
+    partial class M1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -238,6 +238,87 @@ namespace RecipeApp.Data.Migrations
                     b.ToTable("Ingredients");
                 });
 
+            modelBuilder.Entity("RecipeApp.Models.Recipe", b =>
+                {
+                    b.Property<int>("RecipeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Ingredients")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Steps")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("WeekPlanId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("WeekPlanId1")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("WeekPlanId2")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("WeekPlanId3")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("WeekPlanId4")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("WeekPlanId5")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("WeekPlanId6")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("RecipeId");
+
+                    b.HasIndex("WeekPlanId");
+
+                    b.HasIndex("WeekPlanId1");
+
+                    b.HasIndex("WeekPlanId2");
+
+                    b.HasIndex("WeekPlanId3");
+
+                    b.HasIndex("WeekPlanId4");
+
+                    b.HasIndex("WeekPlanId5");
+
+                    b.HasIndex("WeekPlanId6");
+
+                    b.ToTable("Recipes");
+                });
+
+            modelBuilder.Entity("RecipeApp.Models.WeekPlan", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("WeekPlanId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WeekPlans");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -287,6 +368,54 @@ namespace RecipeApp.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("RecipeApp.Models.Recipe", b =>
+                {
+                    b.HasOne("RecipeApp.Models.WeekPlan", null)
+                        .WithMany("Friday")
+                        .HasForeignKey("WeekPlanId");
+
+                    b.HasOne("RecipeApp.Models.WeekPlan", null)
+                        .WithMany("Monday")
+                        .HasForeignKey("WeekPlanId1");
+
+                    b.HasOne("RecipeApp.Models.WeekPlan", null)
+                        .WithMany("Saturday")
+                        .HasForeignKey("WeekPlanId2");
+
+                    b.HasOne("RecipeApp.Models.WeekPlan", null)
+                        .WithMany("Sunday")
+                        .HasForeignKey("WeekPlanId3");
+
+                    b.HasOne("RecipeApp.Models.WeekPlan", null)
+                        .WithMany("Thursday")
+                        .HasForeignKey("WeekPlanId4");
+
+                    b.HasOne("RecipeApp.Models.WeekPlan", null)
+                        .WithMany("Tuesday")
+                        .HasForeignKey("WeekPlanId5");
+
+                    b.HasOne("RecipeApp.Models.WeekPlan", null)
+                        .WithMany("Wednesday")
+                        .HasForeignKey("WeekPlanId6");
+                });
+
+            modelBuilder.Entity("RecipeApp.Models.WeekPlan", b =>
+                {
+                    b.Navigation("Friday");
+
+                    b.Navigation("Monday");
+
+                    b.Navigation("Saturday");
+
+                    b.Navigation("Sunday");
+
+                    b.Navigation("Thursday");
+
+                    b.Navigation("Tuesday");
+
+                    b.Navigation("Wednesday");
                 });
 #pragma warning restore 612, 618
         }

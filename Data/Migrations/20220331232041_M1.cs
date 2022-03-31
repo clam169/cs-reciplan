@@ -49,6 +49,34 @@ namespace RecipeApp.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Ingredients",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    image = table.Column<string>(type: "TEXT", nullable: true),
+                    name = table.Column<string>(type: "TEXT", nullable: true),
+                    amount = table.Column<float>(type: "REAL", nullable: true),
+                    unit = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ingredients", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WeekPlans",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "TEXT", nullable: false),
+                    WeekPlanId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WeekPlans", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -154,6 +182,66 @@ namespace RecipeApp.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Recipes",
+                columns: table => new
+                {
+                    RecipeId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Id = table.Column<string>(type: "TEXT", nullable: true),
+                    Title = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
+                    Image = table.Column<string>(type: "TEXT", nullable: true),
+                    Steps = table.Column<string>(type: "TEXT", nullable: false),
+                    Ingredients = table.Column<string>(type: "TEXT", nullable: false),
+                    WeekPlanId = table.Column<string>(type: "TEXT", nullable: true),
+                    WeekPlanId1 = table.Column<string>(type: "TEXT", nullable: true),
+                    WeekPlanId2 = table.Column<string>(type: "TEXT", nullable: true),
+                    WeekPlanId3 = table.Column<string>(type: "TEXT", nullable: true),
+                    WeekPlanId4 = table.Column<string>(type: "TEXT", nullable: true),
+                    WeekPlanId5 = table.Column<string>(type: "TEXT", nullable: true),
+                    WeekPlanId6 = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Recipes", x => x.RecipeId);
+                    table.ForeignKey(
+                        name: "FK_Recipes_WeekPlans_WeekPlanId",
+                        column: x => x.WeekPlanId,
+                        principalTable: "WeekPlans",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Recipes_WeekPlans_WeekPlanId1",
+                        column: x => x.WeekPlanId1,
+                        principalTable: "WeekPlans",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Recipes_WeekPlans_WeekPlanId2",
+                        column: x => x.WeekPlanId2,
+                        principalTable: "WeekPlans",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Recipes_WeekPlans_WeekPlanId3",
+                        column: x => x.WeekPlanId3,
+                        principalTable: "WeekPlans",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Recipes_WeekPlans_WeekPlanId4",
+                        column: x => x.WeekPlanId4,
+                        principalTable: "WeekPlans",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Recipes_WeekPlans_WeekPlanId5",
+                        column: x => x.WeekPlanId5,
+                        principalTable: "WeekPlans",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Recipes_WeekPlans_WeekPlanId6",
+                        column: x => x.WeekPlanId6,
+                        principalTable: "WeekPlans",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -190,6 +278,41 @@ namespace RecipeApp.Data.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Recipes_WeekPlanId",
+                table: "Recipes",
+                column: "WeekPlanId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Recipes_WeekPlanId1",
+                table: "Recipes",
+                column: "WeekPlanId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Recipes_WeekPlanId2",
+                table: "Recipes",
+                column: "WeekPlanId2");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Recipes_WeekPlanId3",
+                table: "Recipes",
+                column: "WeekPlanId3");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Recipes_WeekPlanId4",
+                table: "Recipes",
+                column: "WeekPlanId4");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Recipes_WeekPlanId5",
+                table: "Recipes",
+                column: "WeekPlanId5");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Recipes_WeekPlanId6",
+                table: "Recipes",
+                column: "WeekPlanId6");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -210,10 +333,19 @@ namespace RecipeApp.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Ingredients");
+
+            migrationBuilder.DropTable(
+                name: "Recipes");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "WeekPlans");
         }
     }
 }
