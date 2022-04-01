@@ -80,13 +80,19 @@ else
 
   protected async Task AddRecipe()
   {
+    //jojo's failed attempt at adding a placeholder image
+    if (String.IsNullOrEmpty(image))
+    {
+      image = "https://www.kindpng.com/picc/m/79-798754_hoteles-y-centros-vacacionales-dish-placeholder-hd-png.png";
+    }
+    Console.WriteLine(image);
     // create new object to insert
     Recipe r = new Recipe()
     {
       Id = "string",
       Title = title,
       Description = description,
-      Image = image,
+      Image = image ?? "https://www.kindpng.com/picc/m/79-798754_hoteles-y-centros-vacacionales-dish-placeholder-hd-png.png",
       Steps = steps,
       Ingredients = ingredients
     };

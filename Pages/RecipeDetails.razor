@@ -1,8 +1,10 @@
-@page "/recipedetails/{id}"
+@page "/recipedetails/{recipeId:int}"
 
 <PageTitle>Recipe Details Page</PageTitle>
-
+@using RecipeApp.Components
+@inject RecipeService recipeService
 @using RecipeApp.Data
+@inject NavigationManager NavigationManager
 
 @if (recipe == null)
 {
@@ -10,71 +12,109 @@
 }
 else
 {
+    <div hidden="@ShowRecipe">
 
     <h1>Recipe Details for @recipe.Title</h1>
 
-
-
     <p>Description: @recipe.Description </p>
-    <p></p>
     <br>
 
     <p>List of Ingredients: @recipe.Ingredients</p>
-
     <br>
 
     <p>Steps: @recipe.Steps </p>
-
     <br>
 
     <img src="@recipe.Image" alt="pic of food">
 
     <button>Add to meal plan +</button>
+    <button @onclick="@Toggle">Edit</button>
+    <button @onclick="@ToggleDelete">Delete</button>
+</div>
+    <div hidden="@ShowEdit">
+
+        <h1>Edit Details for:
+            <input type="text" @bind="@title"><br>
+        </h1>
+        <br>
+        <p>Description: <input type="text" @bind="@description"> </p>
+        <br>
+        <p>List of Ingredients: <input type="text" @bind="@ingredients"></p>
+        <br>
+        <p>Steps: <input type="text" @bind="@steps"> </p>
+        <br>
+        <p>Image URL: <input type="text" @bind="@image"></p>
+        <button @onclick="@EditRecipe">Save</button>
+        <button @onclick="@Toggle">Cancel Edit</button>
+    </div>
+    <div hidden="@ShowDelete">
+        <h1>Are you sure you want to delete @recipe.Title? This cannot be undone.</h1>
+        <button @onclick="@DeleteRecipe">Yes, delete.</button>
+        <button @onclick="@ToggleDelete">No, do not delete.</button>
+    </div>
 }
 @code {
-    @* DotEnv.Load(); *@
-    <!-- List<Recipe> Recipes = new List<Recipe>();
-    protected override async Task OnInitializedAsync() -->
-    <!-- {
-    await RefreshRecipes();
-    }
-
-    private async Task RefreshRecipes()
-    {
-    Recipes = await service.GetRecipeAsync();
-    }
-
-    public Recipe NewRecipe { get; set; } = new Recipe();
-    private async Task AddNewRecipe()
-    {
-    await service.AddRecipeAsync(NewRecipe);
-    NewRecipe = new Recipe();
-    await RefreshRecipes();
-    }
-
-    Recipe UpdateRecipe = new Recipe();
-    private void SetRecipeForUpdate(Recipe Recipe)
-    {
-    UpdateRecipe = Recipe;
-    }
-
-    private async Task UpdateRecipeData()
-    {
-    await service.UpdateRecipeAsync(UpdateRecipe);
-    await RefreshRecipes();
-    }
-
-    private async Task DeleteRecipe(Recipe Recipe)
-    {
-    await service.DeleteRecipeAsync(Recipe);
-    await RefreshRecipes();
-    }  -->
-
-
+    string? title;
+    string? description;
+    string? image;
+    string? steps;
+    string? ingredients;
     Recipe? recipe;
 
+    Recipe r;
+    protected override async Task OnInitializedAsync()
+    {
+        await load();
+    }
+
+    protected async Task load()
+    {
+        recipe = await recipeService.GetRecipeByIdAsync(recipeId);
+        title = recipe.Title;
+        description = recipe.Description;
+        image = recipe.Image;
+        steps = recipe.Steps;
+        ingredients = recipe.Ingredients;
+    }
+
+    protected async Task EditRecipe()
+    {
+        Recipe r = new Recipe()
+        {
+
+            Id = "string",
+            Title = title,
+            Description = description,
+            Image = image,
+            Steps = steps,
+            Ingredients = ingredients
+
+        };
+        Console.WriteLine(r);
+        await recipeService.UpdateRecipeAsync(recipeId, r);
+        Toggle();
+    }
+    private bool ShowEdit { get; set; } = true;
+    private bool ShowRecipe { get; set; } = false;
+    private bool ShowDelete { get; set; } = true;
+    private void Toggle()
+    {
+        ShowEdit = !ShowEdit;
+        ShowRecipe = !ShowRecipe;
+    }
+    private void ToggleDelete()
+    {
+        ShowDelete = !ShowDelete;
+    }
+    protected async Task DeleteRecipe()
+    {
+        await recipeService.DeleteRecipeAsync(recipeId);
+        NavigationManager.NavigateTo("/");
+    }
+
+
     [Parameter]
-    public string? Id { get; set; }
+    public int recipeId { get; set; }
 
 
 }
