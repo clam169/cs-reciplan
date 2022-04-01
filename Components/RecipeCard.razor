@@ -1,6 +1,6 @@
 <div class="recipie-card">
     <div class="card" style="width: 20rem;">
-        <img src="@imageUrl" alt="Recipe Image" class="card-img-top">
+        <a href="/recipeDetails/@recipeId"><img src="@imageUrl" alt="Recipe Image" class="card-img-top"></a>
         <div class="card-body">
             <h5 class="card-title">@recipeName</h5>
             <p class="card-text">@recipeDescription</p>
@@ -16,5 +16,7 @@
     public string? recipeName { get; set; }
     [Parameter]
     public string? recipeDescription { get; set; }
+    [ParameterAttribute]
+    public int? recipeId { get; set; }
 
 }
