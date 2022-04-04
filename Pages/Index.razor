@@ -1,10 +1,12 @@
 @page "/"
+@using Microsoft.AspNetCore.Mvc
 @using RecipeApp.Components
 @using RecipeApp.Data
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 @inject RecipeService recipeService
+@inject AuthenticationStateProvider _authenticationStateProvider
 
 <PageTitle>ReciPlan</PageTitle>
 @* @if (SignInManager.IsSignedIn(User))
@@ -30,7 +32,7 @@
 
   <h3>Add your First Recipe</h3>
 
-  <RecipeForm />
+  <RecipeForm userId=@userId></RecipeForm>
 
 }
 else
@@ -42,16 +44,14 @@ else
   </div>
 
   <p>Here are your recipes from the db</p>
+  <div class="d-flex flex-wrap justify-content-around">
   @foreach (var recipe in recipes)
-  {
-    <RecipeCard imageUrl=@recipe.Image recipeName=@recipe.Title recipeDescription=@recipe.Description
-  recipeId=@recipe.RecipeId>
-</RecipeCard>
-  }
-  <div class="d-flex justify-content-around">
-
-
-</div>
+    {
+      <RecipeCard imageUrl=@recipe.Image recipeName=@recipe.Title recipeDescription=@recipe.Description
+    recipeId=@recipe.RecipeId>
+      </RecipeCard>
+    }
+  </div>
 }
 
 
@@ -63,16 +63,26 @@ else
   string? image;
   string? steps;
   string? ingredients;
+  string? userId;
 
   List<Recipe>? recipes;
 
 
 
+
+  [CascadingParameter] private Task<AuthenticationState> authenticationStateTask { get; set; }
+
   protected override async Task OnInitializedAsync()
   {
     await load();
+    await getUserId();
   }
-
+  async Task<string> getUserId()
+  {
+    var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+    userId = user.FindFirst(u => u.Type.Contains("nameidentifier"))?.Value;
+    return userId;
+  }
   protected async Task load()
   {
     recipes = await recipeService.GetRecipesAsync();
@@ -80,19 +90,14 @@ else
 
   protected async Task AddRecipe()
   {
-    //jojo's failed attempt at adding a placeholder image
-    if (String.IsNullOrEmpty(image))
-    {
-      image = "https://www.kindpng.com/picc/m/79-798754_hoteles-y-centros-vacacionales-dish-placeholder-hd-png.png";
-    }
-    Console.WriteLine(image);
+    Console.WriteLine(userId);
     // create new object to insert
     Recipe r = new Recipe()
     {
-      Id = "string",
+      Id = userId,
       Title = title,
       Description = description,
-      Image = image ?? "https://www.kindpng.com/picc/m/79-798754_hoteles-y-centros-vacacionales-dish-placeholder-hd-png.png",
+      Image = image,
       Steps = steps,
       Ingredients = ingredients
     };
@@ -107,4 +112,12 @@ else
   {
     HideForm = !HideForm;
   }
+  @* public async Task<IActionResult> GetId()
+    {
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier) // will give the user's userId
+    var userName = User.FindFirstValue(ClaimTypes.Name) // will give the user's userName
+
+    ApplicationUser applicationUser = await _userManager.GetUserAsync(User);
+    string userEmail = applicationUser?.Email; // will give the user's Email
+    } *@
 }

@@ -20,5 +20,6 @@ namespace RecipeApp.Models
     public string? Steps { get; set; }
     [Required]
     public string? Ingredients { get; set; }
+    public ICollection<DayPlan> DayPlans { get; set; }
   }
 }

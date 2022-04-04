@@ -22,6 +22,11 @@ namespace RecipeApp.Data
 
     public async Task<Recipe> InsertRecipeAsync(Recipe recipe)
     {
+      if (String.IsNullOrEmpty(recipe.Image))
+      {
+        recipe.Image = "https://www.kindpng.com/picc/m/79-798754_hoteles-y-centros-vacacionales-dish-placeholder-hd-png.png";
+      }
+      Console.WriteLine(recipe.Id);
       _context.Recipes.Add(recipe);
       await _context.SaveChangesAsync();
 
