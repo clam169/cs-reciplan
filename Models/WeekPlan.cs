@@ -1,10 +1,12 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace RecipeApp.Models
 {
   public class WeekPlan
   {
-    public int WeekPlanId { get; set; }
+    [Key]
+    public int WeekPlansId { get; set; }
     [ForeignKey("ApplicationUser")]
     public string? Id { get; set; }
 

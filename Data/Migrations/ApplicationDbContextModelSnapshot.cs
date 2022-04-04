@@ -37,8 +37,8 @@ namespace RecipeApp.Data.Migrations
                     b.Property<int>("DaysDayPlanId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("WeekPlansId")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("WeekPlansId")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("DaysDayPlanId", "WeekPlansId");
 
@@ -293,13 +293,14 @@ namespace RecipeApp.Data.Migrations
 
             modelBuilder.Entity("RecipeApp.Models.WeekPlan", b =>
                 {
+                    b.Property<int>("WeekPlansId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("WeekPlanId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
+                    b.HasKey("WeekPlansId");
 
                     b.ToTable("WeekPlans");
                 });

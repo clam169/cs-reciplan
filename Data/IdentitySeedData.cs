@@ -124,8 +124,6 @@ namespace RecipeApp.Data
     {
       List<Recipe> recipes = new List<Recipe>() {
         new Recipe() {
-        RecipeId = 1,
-
       Id = "string",
       Title = "Pizza",
       Description = "I am a pizza",
@@ -134,8 +132,6 @@ namespace RecipeApp.Data
       Ingredients = "chicken"
           },
       new Recipe() {
-                              RecipeId = 2,
-
       Id = "string",
       Title = "Pasta",
       Description = "I am a pasta",
@@ -144,7 +140,6 @@ namespace RecipeApp.Data
       Ingredients = "chicken, pasta"
           },
                 new Recipe() {
-                    RecipeId = 3,
       Id = "string",
       Title = "nachos",
       Description = "more cheese and flour",
@@ -160,12 +155,10 @@ namespace RecipeApp.Data
     {
       List<DayPlan> dayplans = new List<DayPlan>() {
           new DayPlan() {
-              DayPlanId = 1,
               Weekday = "Monday",
               Recipes = new List<Recipe>(db.Recipes.Take(2)),
           },
           new DayPlan() {
-              DayPlanId = 2,
               Weekday = "Tuesday",
               Recipes = new List<Recipe>(db.Recipes.Take(2)),
           }
@@ -178,7 +171,6 @@ namespace RecipeApp.Data
       List<WeekPlan> weekplans = new List<WeekPlan>() {
           new WeekPlan() {
               Id = "string",
-              WeekPlanId = 1,
               Days = new List<DayPlan>(db.DayPlans.Take(2)),
           }
        };

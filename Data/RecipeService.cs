@@ -1,5 +1,7 @@
 using RecipeApp.Models;
+
 namespace RecipeApp.Data
+
 {
   public class RecipeService
   {

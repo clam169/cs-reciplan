@@ -28,24 +28,60 @@ namespace RecipeApp.Data
       return weekplan;
     }
 
-    public async Task<WeekPlan> UpdateWeekPlanAsync(string id, WeekPlan wp)
+    public async Task<WeekPlan> InitializeWeekPlan(WeekPlan weekPlan)
     {
-      var weekplan = await _context.WeekPlans.FindAsync(id);
 
-      if (weekplan == null)
-        return null;
+      List<DayPlan> dayplans = new List<DayPlan>() {
+          new DayPlan() {
+              Weekday = "Monday",
+              Recipes = null,
+          },
+          new DayPlan() {
+              Weekday = "Tuesday",
+              Recipes = null,
+          },
+                    new DayPlan() {
+              Weekday = "Wednesday",
+              Recipes = null,
+          },
+                    new DayPlan() {
+              Weekday = "Thursday",
+              Recipes = null,
+          },
+                    new DayPlan() {
+              Weekday = "Friday",
+              Recipes = null,
+          },
+                    new DayPlan() {
+              Weekday = "Saturday",
+              Recipes = null,
+          },
+                    new DayPlan() {
+              Weekday = "Sunday",
+              Recipes = null,
+          }
+       };
 
-      weekplan.Monday = wp.Monday;
-      weekplan.Tuesday = wp.Tuesday;
-      weekplan.Wednesday = wp.Wednesday;
-      weekplan.Thursday = wp.Thursday;
-      weekplan.Friday = wp.Friday;
-
-      _context.WeekPlans.Update(weekplan);
-      await _context.SaveChangesAsync();
-
-      return weekplan;
     }
+
+    // public async Task<WeekPlan> UpdateWeekPlanAsync(string id, WeekPlan wp)
+    // {
+    //   var weekplan = await _context.WeekPlans.FindAsync(id);
+
+    //   if (weekplan == null)
+    //     return null;
+
+    //   weekplan.Monday = wp.Monday;
+    //   weekplan.Tuesday = wp.Tuesday;
+    //   weekplan.Wednesday = wp.Wednesday;
+    //   weekplan.Thursday = wp.Thursday;
+    //   weekplan.Friday = wp.Friday;
+
+    //   _context.WeekPlans.Update(weekplan);
+    //   await _context.SaveChangesAsync();
+
+    //   return weekplan;
+    // }
 
     public async Task<WeekPlan> DeleteWeekPlanAsync(string id)
     {
@@ -62,7 +98,7 @@ namespace RecipeApp.Data
 
     private bool WeekPlanExists(int id)
     {
-      return _context.WeekPlans.Any(e => e.WeekPlanId == id);
+      return _context.WeekPlans.Any(e => e.WeekPlansId == id);
     }
   }
 }
