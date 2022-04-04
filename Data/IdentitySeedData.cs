@@ -155,10 +155,12 @@ namespace RecipeApp.Data
     {
       List<DayPlan> dayplans = new List<DayPlan>() {
           new DayPlan() {
+              Id = "string",
               Weekday = "Monday",
               Recipes = new List<Recipe>(db.Recipes.Take(2)),
           },
           new DayPlan() {
+              Id = "string",
               Weekday = "Tuesday",
               Recipes = new List<Recipe>(db.Recipes.Take(2)),
           }

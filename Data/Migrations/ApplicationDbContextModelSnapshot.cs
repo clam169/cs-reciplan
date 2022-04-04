@@ -32,21 +32,6 @@ namespace RecipeApp.Data.Migrations
                     b.ToTable("DayPlanRecipe");
                 });
 
-            modelBuilder.Entity("DayPlanWeekPlan", b =>
-                {
-                    b.Property<int>("DaysDayPlanId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("WeekPlansId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("DaysDayPlanId", "WeekPlansId");
-
-                    b.HasIndex("WeekPlansId");
-
-                    b.ToTable("DayPlanWeekPlan");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -249,11 +234,19 @@ namespace RecipeApp.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("WeekPlansId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Weekday")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("DayPlanId");
+
+                    b.HasIndex("WeekPlansId");
 
                     b.ToTable("DayPlans");
                 });
@@ -320,21 +313,6 @@ namespace RecipeApp.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DayPlanWeekPlan", b =>
-                {
-                    b.HasOne("RecipeApp.Models.DayPlan", null)
-                        .WithMany()
-                        .HasForeignKey("DaysDayPlanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RecipeApp.Models.WeekPlan", null)
-                        .WithMany()
-                        .HasForeignKey("WeekPlansId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -384,6 +362,18 @@ namespace RecipeApp.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("RecipeApp.Models.DayPlan", b =>
+                {
+                    b.HasOne("RecipeApp.Models.WeekPlan", null)
+                        .WithMany("Days")
+                        .HasForeignKey("WeekPlansId");
+                });
+
+            modelBuilder.Entity("RecipeApp.Models.WeekPlan", b =>
+                {
+                    b.Navigation("Days");
                 });
 #pragma warning restore 612, 618
         }

@@ -28,40 +28,70 @@ namespace RecipeApp.Data
       return weekplan;
     }
 
-    public async Task<WeekPlan> InitializeWeekPlan(WeekPlan weekPlan)
+    public async Task<DayPlan> InitializeWeekPlan(String userId)
     {
 
-      List<DayPlan> dayplans = new List<DayPlan>() {
-          new DayPlan() {
-              Weekday = "Monday",
-              Recipes = null,
-          },
-          new DayPlan() {
-              Weekday = "Tuesday",
-              Recipes = null,
-          },
-                    new DayPlan() {
-              Weekday = "Wednesday",
-              Recipes = null,
-          },
-                    new DayPlan() {
-              Weekday = "Thursday",
-              Recipes = null,
-          },
-                    new DayPlan() {
-              Weekday = "Friday",
-              Recipes = null,
-          },
-                    new DayPlan() {
-              Weekday = "Saturday",
-              Recipes = null,
-          },
-                    new DayPlan() {
-              Weekday = "Sunday",
-              Recipes = null,
-          }
-       };
+      // List<DayPlan> dayplans = new List<DayPlan>() {
+      //     new DayPlan() {
+      //         Weekday = "Monday",
+      //                 Id = userId,
+      //         Recipes = null
+      //     },
+      //     new DayPlan() {
+      //         Weekday = "Tuesday",
+      //                 Id = userId,
+      //         Recipes = null,
+      //     },
+      //               new DayPlan() {
+      //         Weekday = "Wednesday",
+      //                 Id = userId,
+      //         Recipes = null,
+      //     },
+      //               new DayPlan() {
+      //         Weekday = "Thursday",
+      //                 Id = userId,
+      //         Recipes = null,
+      //     },
+      //               new DayPlan() {
+      //         Weekday = "Friday",
+      //                 Id = userId,
+      //         Recipes = null,
+      //     },
+      //               new DayPlan() {
+      //         Weekday = "Saturday",
+      //                 Id = userId,
+      //         Recipes = null,
+      //     },
+      //               new DayPlan() {
+      //         Weekday = "Sunday",
+      //                 Id = userId,
+      //         Recipes = null,
+      //     }
+      //  };
+      // foreach (var dayplan in dayplans)
+      // {
+      //   _context.DayPlans.Add(dayplan);
+      //   await _context.SaveChangesAsync();
+      // }
+      // WeekPlan w = new WeekPlan()
+      // {
+      //   Id = userId,
+      //   Days = dayplans,
+      // };
 
+      // _context.WeekPlans.Add(w);
+      // await _context.SaveChangesAsync();
+
+
+      var dayplan = new DayPlan()
+      {
+        Weekday = "Monday",
+        Id = userId,
+        Recipes = Array.Empty<Recipe>()
+      };
+      _context.DayPlans.Add(dayplan);
+      await _context.SaveChangesAsync();
+      return dayplan;
     }
 
     // public async Task<WeekPlan> UpdateWeekPlanAsync(string id, WeekPlan wp)
