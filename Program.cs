@@ -18,7 +18,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<RecipeService>();
-// builder.Services.AddScoped<WeekPlanService>();
+builder.Services.AddScoped<WeekPlanService>();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
 builder.Services.AddSingleton<WeatherForecastService>();
@@ -29,13 +29,13 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseMigrationsEndPoint();
+  app.UseMigrationsEndPoint();
 }
 else
 {
-    app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+  app.UseExceptionHandler("/Error");
+  // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+  app.UseHsts();
 }
 
 app.UseHttpsRedirection();
@@ -54,10 +54,10 @@ app.MapFallbackToPage("/_Host");
 // calls the class we created for the User
 using (var scope = app.Services.CreateScope())
 {
-    var services = scope.ServiceProvider;
-    var context = services.GetRequiredService<ApplicationDbContext>();
-    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
-    IdentitySeedData.Initialize(context, userManager).Wait();
+  var services = scope.ServiceProvider;
+  var context = services.GetRequiredService<ApplicationDbContext>();
+  var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+  IdentitySeedData.Initialize(context, userManager).Wait();
 }
 
 app.Run();

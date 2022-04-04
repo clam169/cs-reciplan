@@ -1,5 +1,7 @@
 using RecipeApp.Models;
+
 namespace RecipeApp.Data
+
 {
   public class WeekPlanService
   {
@@ -9,18 +11,21 @@ namespace RecipeApp.Data
       _context = context;
     }
 
-    public async Task<List<WeekPlan>> GetRecipesAsync()
-    {
-      var result = _context.WeekPlans;
-      return await Task.FromResult(result.ToList());
-    }
-
-    public async Task<WeekPlan> GetRecipeByIdAsync(string id)
+    public async Task<WeekPlan> GetWeekPlanByIdAsync(string id)
     {
       return await _context.WeekPlans.FindAsync(id);
     }
 
-    public async Task<WeekPlan> InsertRecipeAsync(WeekPlan weekplan)
+    public async Task<List<WeekPlan>> GetWeekPlansAsync(string id)
+    {
+
+
+      // *****
+      var result = _context.WeekPlans;
+      return await Task.FromResult(result.ToList());
+
+    }
+    public async Task<WeekPlan> InsertWeekPlanAsync(WeekPlan weekplan)
     {
       _context.WeekPlans.Add(weekplan);
       await _context.SaveChangesAsync();
@@ -35,37 +40,37 @@ namespace RecipeApp.Data
       //     new DayPlan() {
       //         Weekday = "Monday",
       //                 Id = userId,
-      //         Recipes = null
+      //         WeekPlans = null
       //     },
       //     new DayPlan() {
       //         Weekday = "Tuesday",
       //                 Id = userId,
-      //         Recipes = null,
+      //         WeekPlans = null,
       //     },
       //               new DayPlan() {
       //         Weekday = "Wednesday",
       //                 Id = userId,
-      //         Recipes = null,
+      //         WeekPlans = null,
       //     },
       //               new DayPlan() {
       //         Weekday = "Thursday",
       //                 Id = userId,
-      //         Recipes = null,
+      //         WeekPlans = null,
       //     },
       //               new DayPlan() {
       //         Weekday = "Friday",
       //                 Id = userId,
-      //         Recipes = null,
+      //         WeekPlans = null,
       //     },
       //               new DayPlan() {
       //         Weekday = "Saturday",
       //                 Id = userId,
-      //         Recipes = null,
+      //         WeekPlans = null,
       //     },
       //               new DayPlan() {
       //         Weekday = "Sunday",
       //                 Id = userId,
-      //         Recipes = null,
+      //         WeekPlans = null,
       //     }
       //  };
       // foreach (var dayplan in dayplans)
@@ -87,7 +92,7 @@ namespace RecipeApp.Data
       {
         Weekday = "Monday",
         Id = userId,
-        Recipes = Array.Empty<Recipe>()
+        WeekPlans = Array.Empty<WeekPlan>()
       };
       _context.DayPlans.Add(dayplan);
       await _context.SaveChangesAsync();

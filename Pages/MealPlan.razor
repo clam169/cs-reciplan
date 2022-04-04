@@ -1,10 +1,12 @@
 ﻿@page "/meal-plan"
-
-@using RecipeApp.Data
-@using RecipeApp.Models
+@using Microsoft.AspNetCore.Mvc
 @using RecipeApp.Components
-@inject RecipeService recipeService
-
+@using RecipeApp.Data
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@inject AuthenticationStateProvider _authenticationStateProvider
+@inject WeekPlanService weekPlanService
 
 <PageTitle>Meal Plan</PageTitle>
 
@@ -12,9 +14,9 @@
 <h1>Meal Plan</h1>
 <form>
     <select class="custom-select" name="" id="">
-        @foreach (var item in recipes)
+        @foreach (var item in weekplans)
         {
-            <option value="@item.Title">@item.Title</option>
+            <option value="@item.Id">@item.Id</option>
         }
 
     </select>
@@ -38,6 +40,7 @@
 @code {
 
     List<Recipe>? recipes;
+    List<WeekPlan>? weekplans;
 
     protected override async Task OnInitializedAsync()
     {
@@ -46,7 +49,7 @@
 
     protected async Task load()
     {
-        recipes = await recipeService.GetRecipesAsync();
+        weekplans = await weekPlanService.GetWeekPlansAsync("string");
     }
 
 }
