@@ -44,7 +44,7 @@ else
   </div>
 
   <p>Here are your recipes from the db</p>
-  <div class="d-flex flex-wrap justify-content-around">
+  <div class="d-flex flex-wrap justify-content-between">
   @foreach (var recipe in recipes)
     {
       <RecipeCard imageUrl=@recipe.Image recipeName=@recipe.Title recipeDescription=@recipe.Description

@@ -46,55 +46,37 @@ namespace RecipeApp.Data
     {
       Console.WriteLine("CALLING GET DAY PLAN BY USER AND DAY");
       var userId = id;
-      var dayplan = _context.DayPlans.Where(d => d.Id == userId && d.Weekday == dayName).FirstOrDefault();
+      var dayplan = _context.DayPlans.Include(dayplan => dayplan.Recipes).Where(d => d.Id == userId && d.Weekday == dayName).FirstOrDefault<DayPlan>();
+      // var dayplan = _context.DayPlans.Include("Recipes").Where(d => d.Id == userId && d.Weekday == dayName).FirstOrDefault<DayPlan>();
       return dayplan;
+    }
+
+    public async Task<List<Recipe>> GetRecipesByDay(string id, string dayName)
+    {
+      List<Recipe> recipeList = new List<Recipe> { };
+      var dayplans = _context.DayPlans.Include(dayplan => dayplan.Recipes).Where(d => d.Id == id && d.Weekday == dayName);
+      foreach (DayPlan d in dayplans)
+      {
+        foreach (Recipe r in d.Recipes)
+        {
+          Console.WriteLine(r.Title);
+          recipeList.Add(r);
+        }
+      }
+      return recipeList;
     }
     public async Task<DayPlan> AddRecipToExistingDayPlan(string id, string dayName, Recipe recipe)
     {
       Console.WriteLine("CALLING ADD RECIPE TO EXISTING DAY PLANNNNNNNNNN");
       var userId = id;
       var dayplan = _context.DayPlans.Include(dayplan => dayplan.Recipes).Where(d => d.Id == userId && d.Weekday == dayName).FirstOrDefault<DayPlan>();
-      var dayplanList = _context.DayPlans.Include(dayplan => dayplan.Recipes).Where(d => d.Id == userId && d.Weekday == dayName).ToList();
-      Console.WriteLine("IM WRITELINING");
-      Console.WriteLine(recipe.RecipeId);
-
-      foreach (var plan in dayplanList)
-      {
-        Console.WriteLine("'GODAMMNNN FOR EACH RROOOP'");
-        Console.WriteLine(plan.DayPlanId);
-
-      }
 
       ICollection<Recipe> recipes = dayplan.Recipes;
-
-      foreach (var recip in recipes)
-      {
-        Console.WriteLine("' recipe GODAMMNNN FOR EACH RROOOP'");
-        Console.WriteLine(recip.Title);
-
-      }
-      Console.WriteLine(recipes.ToString());
       dayplan.Recipes.Add(recipe);
-      foreach (var recip in recipes)
-      {
-        Console.WriteLine("' second recipe GODAMMNNN FOR EACH RROOOP'");
-        Console.WriteLine(recip.Title);
-
-      }
-      // dayplan.Recipes = recipes;
-
-
-      // _context.DayPlans.Update(dayplan);
       await _context.SaveChangesAsync();
-
 
       return dayplan;
 
-    }
-    private static void Dump(object o)
-    {
-      string json = JsonConvert.SerializeObject(o, Formatting.Indented);
-      Console.WriteLine(json);
     }
     public void InitializeDayPlans(String userId)
     {

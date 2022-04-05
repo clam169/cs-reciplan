@@ -30,28 +30,27 @@ else
 
     <div hidden="@ShowRecipe">
 
-        <h1>Recipe Details for @recipe.Title</h1>
-        <div class="d-flex justify-content-between">
-            <div class="align-left">
-
-                <p>Description: @recipe.Description </p>
-                <br>
-
-                <p>List of Ingredients: @recipe.Ingredients</p>
-                <br>
-
-                <p>Steps: @recipe.Steps </p>
-                <br>
+        <div>
+            <h1>Recipe Details for @recipe.Title</h1>
+            <div class="d-flex flex-wrap justify-content-between">
+                <div class="align-left ">
+                    <h3>Description:</h3>
+                    <p> @recipe.Description
+                    </p>
+                    <br>
+                    <h3>List of Ingredients:</h3>
+                    <p> @recipe.Ingredients</p>
+                    <br>
+                    <h3>Steps:</h3>
+                    <p> @recipe.Steps </p>
+                    <br>
+                </div>
+                <img src="@recipe.Image" alt="pic of food" class="img-fluid">
             </div>
-            <img src="https://www.simplyrecipes.com/thmb/8caxM88NgxZjz-T2aeRW3xjhzBg=/2000x1125/smart/filters:no_upscale()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2019__09__easy-pepperoni-pizza-lead-3-8f256746d649404baa36a44d271329bc.jpg"
-            alt="pic of food" class="w-50 img-fluid">
         </div>
 
 
-        <!-- <img src="@recipe.Image" alt="pic of food" class="float-right"> -->
-
-
-</div>
+    </div>
     <div hidden="@ShowEdit">
 
         <h1>Edit Details for:

@@ -2,45 +2,109 @@
 @using Microsoft.AspNetCore.Mvc
 @using RecipeApp.Components
 @using RecipeApp.Data
+@using RecipeApp.Models
 @using Microsoft.AspNetCore.Identity
+@using System.ComponentModel
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 @inject AuthenticationStateProvider _authenticationStateProvider
 @inject WeekPlanService weekPlanService
+@inject RecipeService recipeService
 
 <PageTitle>Meal Plan</PageTitle>
 
 
 <h1>Meal Plan</h1>
-<form>
-    <select class="custom-select" name="" id="">
-        @foreach (var item in weekplans)
-        {
-            <option value="@item.Id">@item.Id</option>
-        }
 
-    </select>
-    <select class="custom-select" name="" id="">
-        <option value="sunday">Sunday</option>
-        <option value="monday">Monday</option>
-        <option value="tuesday">Tuesday</option>
-        <option value="wednesday">Wednesday</option>
-        <option value="thursday">Thursday</option>
-        <option value="friday">Friday</option>
-        <option value="saturday">Saturday</option>
-    </select>
-    <button type="submit" class="btn btn-primary">+Add to Meal Plan</button>
-</form>
 <div>
     <h3>Day of week</h3>
-    <div class=recipe-card-container>
+    <h3>Monday</h3>
+    <div class="bg-primary text-white">
+        @foreach (var recipe in Monday)
+        {
+            <RecipeCard imageUrl=@recipe.Image recipeName=@recipe.Title recipeDescription=@recipe.Description
+            recipeId=@recipe.RecipeId>
+            </RecipeCard>
+        }
     </div>
+
+    <h3>Tuesday</h3>
+    <div class="bg-primary text-white">
+        @foreach (var recipe in Tuesday)
+        {
+            <RecipeCard imageUrl=@recipe.Image recipeName=@recipe.Title recipeDescription=@recipe.Description
+            recipeId=@recipe.RecipeId>
+            </RecipeCard>
+        }
+    </div>
+
+    <h3>Wednesday</h3>
+    <div class="bg-primary text-white">
+        @foreach (var recipe in Wednesday)
+        {
+            <RecipeCard imageUrl=@recipe.Image recipeName=@recipe.Title recipeDescription=@recipe.Description
+            recipeId=@recipe.RecipeId>
+            </RecipeCard>
+        }
+    </div>
+
+    <h3>Thursday</h3>
+    <div class="bg-primary text-white">
+        @foreach (var recipe in Thursday)
+        {
+            <RecipeCard imageUrl=@recipe.Image recipeName=@recipe.Title recipeDescription=@recipe.Description
+            recipeId=@recipe.RecipeId>
+            </RecipeCard>
+        }
+    </div>
+
+    <h3>Friday</h3>
+    <div class="bg-primary text-white">
+        @foreach (var recipe in Friday)
+        {
+            <RecipeCard imageUrl=@recipe.Image recipeName=@recipe.Title recipeDescription=@recipe.Description
+            recipeId=@recipe.RecipeId>
+            </RecipeCard>
+        }
+    </div>
+
+    <h3>Saturday</h3>
+    <div class="bg-primary text-white">
+        @foreach (var recipe in Saturday)
+        {
+            <RecipeCard imageUrl=@recipe.Image recipeName=@recipe.Title recipeDescription=@recipe.Description
+            recipeId=@recipe.RecipeId>
+            </RecipeCard>
+        }
+    </div>
+
+    <h3>Sunday</h3>
+    <div class="bg-primary text-white">
+        @foreach (var recipe in Sunday)
+        {
+            <RecipeCard imageUrl=@recipe.Image recipeName=@recipe.Title recipeDescription=@recipe.Description
+            recipeId=@recipe.RecipeId>
+            </RecipeCard>
+        }
+    </div>
+
+
 </div>
 
 @code {
 
-    List<Recipe>? recipes;
+    List<Recipe>? allRecipes;
+    Recipe? recipe;
     List<WeekPlan>? weekplans;
+
+    List<Recipe>? Monday;
+    List<Recipe>? Tuesday;
+    List<Recipe>? Wednesday;
+    List<Recipe>? Thursday;
+    List<Recipe>? Friday;
+    List<Recipe>? Saturday;
+    List<Recipe>? Sunday;
+    string userId;
 
     protected override async Task OnInitializedAsync()
     {
@@ -49,7 +113,49 @@
 
     protected async Task load()
     {
-        weekplans = await weekPlanService.GetWeekPlansAsync("string");
+        allRecipes = await recipeService.GetRecipesAsync();
+        @* GetDayPlans(); *@
+        GetRecipesByDay();
+        //
     }
 
+    async Task<string> getUserId()
+    {
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        userId = user.FindFirst(u => u.Type.Contains("nameidentifier"))?.Value;
+        return userId;
+    }
+    protected async Task<List<DayPlan>> GetDayPlans()
+    {
+        var mon = await weekPlanService.GetDayPlansByUserAndDay("string", "Monday");
+        var tues = await weekPlanService.GetDayPlansByUserAndDay("string", "Tuesday");
+
+        <!-- ICollection<Recipe> = mon.Recipes; -->
+        foreach (Recipe item in mon.Recipes)
+        {
+            Console.WriteLine(item.Title);
+        }
+
+
+
+        List<DayPlan> dps = new List<DayPlan> {
+mon,
+tues,
+};
+        return dps;
+    }
+
+    protected async Task GetRecipesByDay()
+    {
+        userId = await getUserId();
+        Monday = await weekPlanService.GetRecipesByDay("string", "Monday");
+        Tuesday = await weekPlanService.GetRecipesByDay("string", "Tuesday");
+        Wednesday = await weekPlanService.GetRecipesByDay("string", "Wednesday");
+        Thursday = await weekPlanService.GetRecipesByDay("string", "Thursday");
+        Friday = await weekPlanService.GetRecipesByDay("string", "Friday");
+        Saturday = await weekPlanService.GetRecipesByDay("string", "Saturday");
+        Sunday = await weekPlanService.GetRecipesByDay("string", "Sunday");
+
+
+    }
 }
