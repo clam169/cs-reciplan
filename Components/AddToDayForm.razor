@@ -1,0 +1,85 @@
+@using Microsoft.AspNetCore.Identity
+@inject RecipeService recipeService
+@inject WeekPlanService weekPlanService
+@inject AuthenticationStateProvider _authenticationStateProvider
+@using RecipeApp.Models
+
+@if (recipe == null)
+{
+    <h1>WAITING</h1>
+}
+else
+{
+    <form>
+    <div class="d-flex justify-content-end">
+        <div class="form-group">
+            Select the day to add @recipe.Title <br>
+            <label for="weekday">Weekday:</label>
+            <select @bind="@weekday" class="custom-select" name="" id="">
+                <option value="Sunday">Sunday</option>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+            </select>
+        </div>
+    </div>
+    <div class="d-flex justify-content-end">
+        <button @onclick="@AddToDay" class="btn btn-success btn-sm">+ Add</button>
+    </div>
+</form>
+}
+
+@code {
+
+    string? userId;
+    string? weekday;
+    List<Recipe> recipes;
+    <!-- Receives recipe object from the Recipe Details page -->
+    [CascadingParameter]
+    public Recipe? recipe { get; set; }
+
+    async Task<string> getUserId()
+    {
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        userId = user.FindFirst(u => u.Type.Contains("nameidentifier"))?.Value;
+        return userId;
+    }
+    protected async Task AddToDay()
+    {
+        Console.WriteLine("CALLING ADD TO DAY.");
+        @* var userId = await getUserId(); *@
+        var userId = "string";
+
+        var dayPlan = await weekPlanService.GetDayPlansByUserAndDay(userId, weekday);
+        Console.WriteLine("dumb ", dayPlan);
+
+        if (dayPlan != null)
+        {
+            Console.WriteLine("DAYPLAN EXISTS");
+
+            await weekPlanService.AddRecipToExistingDayPlan(userId, weekday, recipe);
+        }
+        else
+        {
+            Console.WriteLine("DAY PLAN FUCKING DOES NOT EXISTS AKA NUUUUULLLLLL");
+            DayPlan d = new DayPlan()
+            {
+                @* Id = await getUserId(), *@
+                Id = "string",
+                Weekday = weekday,
+                @* Recipes = Array.Empty<Recipe>(), *@
+                Recipes = new List<Recipe>() { recipe }
+            };
+
+
+            // call the function that will add recipe to db
+            await weekPlanService.AddToDayPlanAsync(d);
+
+        }
+        // create new object to insert
+
+    }
+}

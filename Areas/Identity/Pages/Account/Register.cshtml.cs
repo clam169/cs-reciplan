@@ -20,7 +20,6 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using RecipeApp.Data;
 
-
 namespace RecipeApp.Areas.Identity.Pages.Account
 {
   public class RegisterModel : PageModel
@@ -31,14 +30,16 @@ namespace RecipeApp.Areas.Identity.Pages.Account
     private readonly IUserEmailStore<IdentityUser> _emailStore;
     private readonly ILogger<RegisterModel> _logger;
     private readonly IEmailSender _emailSender;
-    WeekPlanService weekPlanService;
+
+
 
     public RegisterModel(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender
+    )
     {
       _userManager = userManager;
       _userStore = userStore;
@@ -137,7 +138,7 @@ namespace RecipeApp.Areas.Identity.Pages.Account
 
           await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
               $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-          // await weekPlanService.InitializeWeekPlan(userId);
+
 
           if (_userManager.Options.SignIn.RequireConfirmedAccount)
           {

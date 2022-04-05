@@ -13,24 +13,44 @@
 }
 else
 {
+    <div class="d-flex bd-highlight mb-3">
+    <button @onclick="@Toggle" class="btn btn-secondary p-2 bd-highlight">Edit</button>
+    <button @onclick="@ToggleDelete" class="btn btn-danger p-2 bd-highlight">Delete</button>
+    <button class="btn btn-primary ms-auto p-2 bd-highlight" @onclick="@ToggleMealPlan">Add to Meal Plan +</button>
+</div>
+    <div class="d-flex justify-content-end">
+        <div hidden="@HideForm">
+            <CascadingValue Value=recipe>
+                <AddToDayForm />
+            </CascadingValue>
+        </div>
+    </div>
+
+
+
     <div hidden="@ShowRecipe">
 
-    <h1>Recipe Details for @recipe.Title</h1>
+        <h1>Recipe Details for @recipe.Title</h1>
+        <div class="d-flex justify-content-between">
+            <div class="align-left">
 
-    <p>Description: @recipe.Description </p>
-    <br>
+                <p>Description: @recipe.Description </p>
+                <br>
 
-    <p>List of Ingredients: @recipe.Ingredients</p>
-    <br>
+                <p>List of Ingredients: @recipe.Ingredients</p>
+                <br>
 
-    <p>Steps: @recipe.Steps </p>
-    <br>
+                <p>Steps: @recipe.Steps </p>
+                <br>
+            </div>
+            <img src="https://www.simplyrecipes.com/thmb/8caxM88NgxZjz-T2aeRW3xjhzBg=/2000x1125/smart/filters:no_upscale()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2019__09__easy-pepperoni-pizza-lead-3-8f256746d649404baa36a44d271329bc.jpg"
+            alt="pic of food" class="w-50 img-fluid">
+        </div>
 
-    <img src="@recipe.Image" alt="pic of food" class="img-fluid">
 
-    <button>Add to meal plan +</button>
-    <button @onclick="@Toggle">Edit</button>
-    <button @onclick="@ToggleDelete">Delete</button>
+        <!-- <img src="@recipe.Image" alt="pic of food" class="float-right"> -->
+
+
 </div>
     <div hidden="@ShowEdit">
 
@@ -60,6 +80,7 @@ else
     string? image;
     string? steps;
     string? ingredients;
+
     Recipe? recipe;
 
     Recipe r;
@@ -117,5 +138,9 @@ else
     [Parameter]
     public int recipeId { get; set; }
 
-
+    private bool HideForm { get; set; } = true;
+    private void ToggleMealPlan()
+    {
+        HideForm = !HideForm;
+    }
 }

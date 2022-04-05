@@ -15,6 +15,7 @@ namespace RecipeApp.Data
     public DbSet<Recipe>? Recipes { get; set; }
     public DbSet<WeekPlan>? WeekPlans { get; set; }
 
+
     //   protected override void OnModelCreating(ModelBuilder modelBuilder)
     //   {
     //     modelBuilder

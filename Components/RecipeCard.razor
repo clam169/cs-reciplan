@@ -1,14 +1,28 @@
-<div class="recipie-card" style="margin: 1rem;">
-    <div class="card" style="width: 20rem;">
-        <a href="/recipeDetails/@recipeId"><img src="@imageUrl" alt="Recipe Image" class="card-img-top"></a>
-        <div class="card-body">
-            <h5 class="card-title">@recipeName</h5>
-            <p class="card-text">@recipeDescription</p>
+<div style="margin: 1rem;">
+    <div class="recipie-card">
+        <div class="card" style="width: 20rem;">
+            <a href="/recipeDetails/@recipeId"><img src="@imageUrl" alt="Recipe Image" class="card-img-top"></a>
+            <div class="card-body">
+                <h5 class="card-title">@recipeName</h5>
+                <p class="card-text">@recipeDescription</p>
 
+            </div>
         </div>
     </div>
+    <span> Select a Day: </span>
+    <form>
+        <select class="custom-select" name="" id="">
+            <option value="sunday">Sunday</option>
+            <option value="monday">Monday</option>
+            <option value="tuesday">Tuesday</option>
+            <option value="wednesday">Wednesday</option>
+            <option value="thursday">Thursday</option>
+            <option value="friday">Friday</option>
+            <option value="saturday">Saturday</option>
+        </select>
+        <button type="submit" class="btn btn-success btn-sm">+Add</button>
+    </form>
 </div>
-
 @code {
     [Parameter]
     public string? imageUrl { get; set; }
