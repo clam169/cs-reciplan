@@ -3,9 +3,11 @@
 @inject WeekPlanService weekPlanService
 @inject AuthenticationStateProvider _authenticationStateProvider
 @using RecipeApp.Models
+@inject NavigationManager NavigationManager
 
 
-<form>
+
+<div>
     <div class="d-flex justify-content-end">
         <div class="form-group">
             Select the day to add @recipe.Title <br>
@@ -25,7 +27,7 @@
     <div class="d-flex justify-content-end">
         <button @onclick="@AddToDay" class="btn btn-success btn-sm">+ Add</button>
     </div>
-</form>
+</div>
 
 
 @code {
@@ -46,8 +48,7 @@
     protected async Task AddToDay()
     {
         Console.WriteLine("CALLING ADD TO DAY.");
-        @* var userId = await getUserId(); *@
-        var userId = "string";
+        var userId = await getUserId();
 
         var dayPlan = await weekPlanService.GetDayPlansByUserAndDay(userId, weekday);
         Console.WriteLine("dumb ", dayPlan);
@@ -64,7 +65,7 @@
             DayPlan d = new DayPlan()
             {
                 @* Id = await getUserId(), *@
-                Id = "string",
+                Id = userId,
                 Weekday = weekday,
                 @* Recipes = Array.Empty<Recipe>(), *@
                 Recipes = new List<Recipe>() { recipe }
@@ -75,7 +76,9 @@
             await weekPlanService.AddToDayPlanAsync(d);
 
         }
-        // create new object to insert
+
+
+        NavigationManager.NavigateTo("meal-plan", true);
 
     }
 }

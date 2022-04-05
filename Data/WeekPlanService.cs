@@ -67,7 +67,6 @@ namespace RecipeApp.Data
     }
     public async Task<DayPlan> AddRecipToExistingDayPlan(string id, string dayName, Recipe recipe)
     {
-      Console.WriteLine("CALLING ADD RECIPE TO EXISTING DAY PLANNNNNNNNNN");
       var userId = id;
       var dayplan = _context.DayPlans.Include(dayplan => dayplan.Recipes).Where(d => d.Id == userId && d.Weekday == dayName).FirstOrDefault<DayPlan>();
 
@@ -78,51 +77,6 @@ namespace RecipeApp.Data
       return dayplan;
 
     }
-    public void InitializeDayPlans(String userId)
-    {
-      List<DayPlan> dayplans = new List<DayPlan>() {
-        new DayPlan(){
-          Id = userId,
-          Weekday = "Sunday",
-          Recipes = new List<Recipe>() {}
-        },
-        new DayPlan(){
-          Id = userId,
-          Weekday = "Monday",
-          Recipes = new List<Recipe>() {}
-        },
-        new DayPlan(){
-          Id = userId,
-          Weekday = "Tuesday",
-          Recipes = new List<Recipe>() {}
-        },
-        new DayPlan(){
-          Id = userId,
-          Weekday = "Wednesday",
-          Recipes = new List<Recipe>() {}
-        },
-        new DayPlan(){
-          Id = userId,
-          Weekday = "Thursday",
-          Recipes = new List<Recipe>() {}
-        },
-        new DayPlan(){
-          Id = userId,
-          Weekday = "Friday",
-          Recipes = new List<Recipe>() {}
-        },
-        new DayPlan(){
-          Id = userId,
-          Weekday = "Saturday",
-          Recipes = new List<Recipe>() {}
-        },
-      };
-      _context.DayPlans!.AddRange(dayplans.ToArray());
-      _context.SaveChangesAsync();
-      return;
-    }
-
-
     public async Task<WeekPlan> DeleteWeekPlanAsync(string id)
     {
       var weekplan = await _context.WeekPlans.FindAsync(id);

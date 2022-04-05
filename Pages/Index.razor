@@ -1,14 +1,15 @@
 @page "/"
-@using Microsoft.AspNetCore.Mvc
-@using RecipeApp.Components
-@using RecipeApp.Data
-@using Microsoft.AspNetCore.Identity
+
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 @inject RecipeService recipeService
 @inject AuthenticationStateProvider _authenticationStateProvider
+@inject NavigationManager NavigationManager
 
-<PageTitle>ReciPlan</PageTitle>
+
+<AuthorizeView>
+    <Authorized>
+        <PageTitle>ReciPlan</PageTitle>
 @* @if (SignInManager.IsSignedIn(User))
   {
   <li class="nav-item">
@@ -44,7 +45,7 @@ else
   </div>
 
   <p>Here are your recipes from the db</p>
-  <div class="d-flex flex-wrap justify-content-between">
+  <div class="d-flex flex-wrap">
   @foreach (var recipe in recipes)
     {
       <RecipeCard imageUrl=@recipe.Image recipeName=@recipe.Title recipeDescription=@recipe.Description
@@ -53,6 +54,24 @@ else
     }
   </div>
 }
+    </Authorized>
+    <NotAuthorized>
+      <h2>What's the plan?</h2>
+      <img src="/images/ReciPlan.png" class="img-fluid">
+      <br>
+      <br>
+      <h4>Please <a href="Identity/Account/Login" class="link-secondary"> log in </a> to start making your plan.</h4>
+      <hr>
+<br>
+<br>
+<br>
+<br>
+        <p>partnered with Fruitigo,Food2U, and PEDrink</p>
+        <p>sponsored by Blend The Lines</p>
+    </NotAuthorized>
+</AuthorizeView>
+
+
 
 
 
@@ -72,10 +91,21 @@ else
 
   [CascadingParameter] private Task<AuthenticationState> authenticationStateTask { get; set; }
 
+
   protected override async Task OnInitializedAsync()
   {
-    await load();
+    base.OnInitialized();
+
+    var user = (await authenticationStateTask).User;
+    if (!user.Identity.IsAuthenticated)
+    {
+      <!-- NavigationManager.NavigateTo("Identity/Account/login", true); -->
+    }
+
     await getUserId();
+    await load();
+
+
   }
   async Task<string> getUserId()
   {

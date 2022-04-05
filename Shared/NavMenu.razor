@@ -8,19 +8,40 @@
 </div>
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Recipes
-            </NavLink>
-        </div>
+    <AuthorizeView>
+        <Authorized>
+            <nav class="flex-column">
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                        <span class="oi oi-home" aria-hidden="true"></span> Recipes
+                    </NavLink>
+                </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="meal-plan">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Meal Plan
-            </NavLink>
-        </div>
-    </nav>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="meal-plan">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Meal Plan
+                    </NavLink>
+                </div>
+            </nav>
+        </Authorized>
+        <NotAuthorized>
+            <nav class="flex-column">
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="identity/account/login" Match="NavLinkMatch.All">
+                        <span class="oi oi-home" aria-hidden="true"></span> Log In
+                    </NavLink>
+                </div>
+
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="identity/account/register">
+                        <span class="oi oi-home" aria-hidden="true"></span> Register
+                    </NavLink>
+                </div>
+            </nav>
+
+        </NotAuthorized>
+    </AuthorizeView>
+
 </div>
 
 @code {
