@@ -77,6 +77,19 @@ namespace RecipeApp.Data
       return dayplan;
 
     }
+
+    public async Task<DayPlan> RemoveRecipFromExistingDayPlan(string id, string dayName, Recipe recipe)
+    {
+      var userId = id;
+      var dayplan = _context.DayPlans.Include(dayplan => dayplan.Recipes).Where(d => d.Id == userId && d.Weekday == dayName).FirstOrDefault<DayPlan>();
+
+      ICollection<Recipe> recipes = dayplan.Recipes;
+      dayplan.Recipes.Remove(recipe);
+      await _context.SaveChangesAsync();
+
+      return dayplan;
+
+    }
     public async Task<WeekPlan> DeleteWeekPlanAsync(string id)
     {
       var weekplan = await _context.WeekPlans.FindAsync(id);

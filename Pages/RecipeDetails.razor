@@ -29,16 +29,20 @@ else
             </CascadingValue>
         </div>
     </div>
-
+    <div hidden="@ShowDelete">
+        <h4>Are you sure you want to delete @recipe.Title? This cannot be undone.</h4>
+        <button @onclick="@DeleteRecipe" class="btn btn-danger">Yes, delete.</button>
+        <button @onclick="@ToggleDelete" class="btn btn-success">No, do not delete.</button>
+    </div>
 
 
     <div hidden="@ShowRecipe">
 
         <div style="width: 100%">
             <h1>Recipe Details for @recipe.Title</h1>
-            <div class="d-flex flex-wrap flex-column justify-content-between align-items-stretch"
-                style="margin-right:10rem; max-width:1400px;">
-                <div class=" align-left align-self-stretch" style="max-width: 50%; min-width:500px">
+            <div class="d-flex flex-wrap flex-row justify-content-between"
+                style="margin-right:10rem; width:100%;margin:auto">
+                <div class="flex-fill flex-grow-1 inline-block" style="max-width:60%">
                     <h3>Description:</h3>
                     <p> @recipe.Description
                     </p>
@@ -50,7 +54,7 @@ else
                     <p> @recipe.Steps </p>
                     <br>
                 </div>
-                <div class="align-self-stretch">
+                <div class="inline flex-shrink-1" style="text-align:center">
                     <img src=" @recipe.Image" alt="pic of food" style="max-width:500px; height:600px; object-fit:cover">
                 </div>
             </div>
@@ -59,25 +63,28 @@ else
 
     </div>
     <div hidden="@ShowEdit">
-
-        <h1>Edit Details for:
-            <input type="text" @bind="@title"><br>
-        </h1>
-        <br>
-        <p>Description: <input type="text" @bind="@description"> </p>
-        <br>
-        <p>List of Ingredients: <input type="text" @bind="@ingredients"></p>
-        <br>
-        <p>Steps: <input type="text" @bind="@steps"> </p>
-        <br>
-        <p>Image URL: <input type="text" @bind="@image"></p>
-        <button @onclick="@EditRecipe">Save</button>
-        <button @onclick="@Toggle">Cancel Edit</button>
-    </div>
-    <div hidden="@ShowDelete">
-        <h1>Are you sure you want to delete @recipe.Title? This cannot be undone.</h1>
-        <button @onclick="@DeleteRecipe">Yes, delete.</button>
-        <button @onclick="@ToggleDelete">No, do not delete.</button>
+        <div class="form-group">
+            <h1>Edit Details for:<br>
+                <input type="text" @bind="@title" class="form-control"><br>
+            </h1>
+            <p>Description:<br>
+                <input type="text" @bind="@description" class="form-control">
+            </p>
+            <br>
+            <p>List of Ingredients:<br>
+                <input type="text" @bind="@ingredients" class="form-control">
+            </p>
+            <br>
+            <p>Steps: <br>
+                <textarea class="form-control" @bind="@steps" @bind:event="oninput" style="height: 225px;"></textarea>
+            </p>
+            <br>
+            <p>Image URL: <br>
+                <input type="text" @bind="@image" class="form-control">
+            </p>
+            <button @onclick="@EditRecipe" class="btn btn-success">Save</button>
+            <button @onclick="@Toggle" class="btn btn-warning">Cancel Edit</button>
+        </div>
     </div>
 </main>
 }

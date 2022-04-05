@@ -11,9 +11,9 @@ namespace RecipeApp.Data
       _context = context;
     }
 
-    public async Task<List<Recipe>> GetRecipesAsync()
+    public async Task<List<Recipe>> GetRecipesAsync(string id)
     {
-      var result = _context.Recipes;
+      var result = _context.Recipes.Where(r => r.Id == id);
       return await Task.FromResult(result.ToList());
     }
 

@@ -125,7 +125,7 @@
 
     protected async Task load()
     {
-        allRecipes = await recipeService.GetRecipesAsync();
+        allRecipes = await recipeService.GetRecipesAsync(userId);
         GetRecipesByDay();
         //
     }

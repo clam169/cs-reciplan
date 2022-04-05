@@ -23,7 +23,7 @@
   </li>
   } *@
 
-<h1>Home Page</h1>
+<h1>Your Recipes</h1>
 @if (recipes == null || recipes.Count == 0)
 @* {
   <p><em>Loading...</em></p>
@@ -44,7 +44,6 @@ else
     <RecipeForm />
   </div>
 
-  <p>Here are your recipes from the db</p>
   <div class="d-flex flex-wrap">
   @foreach (var recipe in recipes)
     {
@@ -60,13 +59,13 @@ else
       <img src="/images/ReciPlan.png" class="img-fluid">
       <br>
       <br>
-      <h4>Please <a href="Identity/Account/Login" class="link-secondary"> log in </a> to start making your plan.</h4>
+      <h4>Please <a href="Identity/Account/Login" class="link-secondary">log in</a>  to start making your plan.</h4>
       <hr>
 <br>
 <br>
 <br>
 <br>
-        <p>partnered with Fruitigo,Food2U, and PEDrink</p>
+        <p>partnered with Fruitigo, Food2U, and PEDrink</p>
         <p>sponsored by Blend The Lines</p>
     </NotAuthorized>
 </AuthorizeView>
@@ -115,12 +114,11 @@ else
   }
   protected async Task load()
   {
-    recipes = await recipeService.GetRecipesAsync();
+    recipes = await recipeService.GetRecipesAsync(userId);
   }
 
   protected async Task AddRecipe()
   {
-    Console.WriteLine(userId);
     // create new object to insert
     Recipe r = new Recipe()
     {
