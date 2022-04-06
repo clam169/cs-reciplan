@@ -54,6 +54,7 @@
 - User can register and sign in
 - Create recipe card components
 - Create tables and relations for Meal plans, recipes, and users
+- Styling
 
 ### Sprint 5
 
