@@ -18,74 +18,131 @@
 <h1>Meal Plan</h1>
 
 <div>
-    <h3>Monday</h3>
-    <div class="d-flex flex-wrap bg-light text-dark">
-        @foreach (var recipe in Monday)
-        {
-            <RecipeCard imageUrl=@recipe.Image recipeName=@recipe.Title recipeDescription=@recipe.Description
-            recipeId=@recipe.RecipeId>
-            </RecipeCard>
-        }
+
+    <div class="card">
+        <h3 class="card-header">Monday</h3>
+        <div class="d-flex flex-wrap bg-light text-dark">
+            @foreach (var recipe in Monday)
+            {
+                <div style="position:relative">
+                    <RecipeCard imageUrl=@recipe.Image recipeName=@recipe.Title recipeDescription=@recipe.Description
+                    recipeId=@recipe.RecipeId>
+                    </RecipeCard>
+                    <span @onclick='() => removeRecipe("Monday", recipe)' class="bd-highlight"
+                    style="position:absolute;z-index:1;top:10px;right:10px;cursor:pointer;"><img
+                        src="/images/minus.png">
+                    </span>
+                </div>
+            }
+        </div>
     </div>
 
-    <h3>Tuesday</h3>
-    <div class="d-flex flex-wrap bg-light text-dark">
-        @foreach (var recipe in Tuesday)
-        {
-            <RecipeCard imageUrl=@recipe.Image recipeName=@recipe.Title recipeDescription=@recipe.Description
-            recipeId=@recipe.RecipeId>
-            </RecipeCard>
-        }
+    <div class="card">
+        <h3 class="card-header">Tuesday</h3>
+        <div class="d-flex flex-wrap bg-light text-dark">
+            @foreach (var recipe in Tuesday)
+            {
+                <div style="position:relative">
+                    <RecipeCard imageUrl=@recipe.Image recipeName=@recipe.Title recipeDescription=@recipe.Description
+                    recipeId=@recipe.RecipeId>
+                    </RecipeCard>
+                    <span @onclick='() => removeRecipe("Tuesday", recipe)' class="bd-highlight"
+                    style="position:absolute;z-index:1;top:10px;right:10px;cursor:pointer;"><img
+                        src="/images/minus.png">
+                    </span>
+                </div>
+            }
+        </div>
     </div>
 
-    <h3>Wednesday</h3>
-    <div class="d-flex flex-wrap bg-light text-dark">
-        @foreach (var recipe in Wednesday)
-        {
-            <RecipeCard imageUrl=@recipe.Image recipeName=@recipe.Title recipeDescription=@recipe.Description
-            recipeId=@recipe.RecipeId>
-            </RecipeCard>
-        }
+    <div class="card">
+        <h3 class="card-header">Wednesday</h3>
+        <div class="d-flex flex-wrap bg-light text-dark">
+            @foreach (var recipe in Wednesday)
+            {
+                <div style="position:relative">
+                    <RecipeCard imageUrl=@recipe.Image recipeName=@recipe.Title recipeDescription=@recipe.Description
+                    recipeId=@recipe.RecipeId>
+                    </RecipeCard>
+                    <span @onclick='() => removeRecipe("Wednesday", recipe)' class="bd-highlight"
+                    style="position:absolute;z-index:1;top:10px;right:10px;cursor:pointer;"><img
+                        src="/images/minus.png">
+                    </span>
+                </div>
+            }
+        </div>
     </div>
 
-    <h3>Thursday</h3>
-    <div class="d-flex flex-wrap bg-light text-dark">
-        @foreach (var recipe in Thursday)
-        {
-            <RecipeCard imageUrl=@recipe.Image recipeName=@recipe.Title recipeDescription=@recipe.Description
-            recipeId=@recipe.RecipeId>
-            </RecipeCard>
-        }
+    <div class="card">
+        <h3 class="card-header">Thursday</h3>
+        <div class="d-flex flex-wrap bg-light text-dark">
+            @foreach (var recipe in Thursday)
+            {
+                <div style="position:relative">
+                    <RecipeCard imageUrl=@recipe.Image recipeName=@recipe.Title recipeDescription=@recipe.Description
+                    recipeId=@recipe.RecipeId>
+                    </RecipeCard>
+                    <span @onclick='() => removeRecipe("Thursday", recipe)' class="bd-highlight"
+                    style="position:absolute;z-index:1;top:10px;right:10px;cursor:pointer;"><img
+                        src="/images/minus.png">
+                    </span>
+                </div>
+            }
+        </div>
     </div>
 
-    <h3>Friday</h3>
-    <div class="d-flex flex-wrap bg-light text-dark">
-        @foreach (var recipe in Friday)
-        {
-            <RecipeCard imageUrl=@recipe.Image recipeName=@recipe.Title recipeDescription=@recipe.Description
-            recipeId=@recipe.RecipeId>
-            </RecipeCard>
-        }
+    <div class="card">
+        <h3 class="card-header">Friday</h3>
+        <div class="d-flex flex-wrap bg-light text-dark">
+            @foreach (var recipe in Friday)
+            {
+                <div style="position:relative">
+                    <RecipeCard imageUrl=@recipe.Image recipeName=@recipe.Title recipeDescription=@recipe.Description
+                    recipeId=@recipe.RecipeId>
+                    </RecipeCard>
+                    <span @onclick='() => removeRecipe("Friday", recipe)' class="bd-highlight"
+                    style="position:absolute;z-index:1;top:10px;right:10px;cursor:pointer;"><img
+                        src="/images/minus.png">
+                    </span>
+                </div>
+            }
+        </div>
     </div>
 
-    <h3>Saturday</h3>
-    <div class="d-flex flex-wrap bg-light text-dark">
-        @foreach (var recipe in Saturday)
-        {
-            <RecipeCard imageUrl=@recipe.Image recipeName=@recipe.Title recipeDescription=@recipe.Description
-            recipeId=@recipe.RecipeId>
-            </RecipeCard>
-        }
+    <div class="card">
+        <h3 class="card-header">Saturday</h3>
+        <div class="d-flex flex-wrap bg-light text-dark">
+            @foreach (var recipe in Saturday)
+            {
+                <div style="position:relative">
+                    <RecipeCard imageUrl=@recipe.Image recipeName=@recipe.Title recipeDescription=@recipe.Description
+                    recipeId=@recipe.RecipeId>
+                    </RecipeCard>
+                    <span @onclick='() => removeRecipe("Saturday", recipe)' class="bd-highlight"
+                    style="position:absolute;z-index:1;top:10px;right:10px;cursor:pointer;"><img
+                        src="/images/minus.png">
+                    </span>
+                </div>
+            }
+        </div>
     </div>
 
-    <h3>Sunday</h3>
-    <div class="d-flex flex-wrap bg-light text-dark">
-        @foreach (var recipe in Sunday)
-        {
-            <RecipeCard imageUrl=@recipe.Image recipeName=@recipe.Title recipeDescription=@recipe.Description
-            recipeId=@recipe.RecipeId>
-            </RecipeCard>
-        }
+    <div class="card">
+        <h3 class="card-header">Sunday</h3>
+        <div class="d-flex flex-wrap bg-light text-dark">
+            @foreach (var recipe in Sunday)
+            {
+                <div style="position:relative">
+                    <RecipeCard imageUrl=@recipe.Image recipeName=@recipe.Title recipeDescription=@recipe.Description
+                    recipeId=@recipe.RecipeId>
+                    </RecipeCard>
+                    <span @onclick='() => removeRecipe("Sunday", recipe)' class="bd-highlight"
+                    style="position:absolute;z-index:1;top:10px;right:10px;cursor:pointer;"><img
+                        src="/images/minus.png">
+                    </span>
+                </div>
+            }
+        </div>
     </div>
 
 
@@ -104,12 +161,23 @@
     List<Recipe>? Friday;
     List<Recipe>? Saturday;
     List<Recipe>? Sunday;
+
     string userId;
+
+    List<String> Days = new List<string> { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+
+
+
 
 
 
     [CascadingParameter] protected Task<AuthenticationState> AuthStat { get; set; }
 
+    protected async Task removeRecipe(string dayName, Recipe recipe)
+    {
+        await weekPlanService.RemoveRecipFromExistingDayPlan(userId, dayName, recipe);
+        NavigationManager.NavigateTo("meal-plan", true);
+    }
     protected override async Task OnInitializedAsync()
     {
         base.OnInitialized();
@@ -146,7 +214,6 @@
         Friday = await weekPlanService.GetRecipesByDay(userId, "Friday");
         Saturday = await weekPlanService.GetRecipesByDay(userId, "Saturday");
         Sunday = await weekPlanService.GetRecipesByDay(userId, "Sunday");
-
 
     }
 }

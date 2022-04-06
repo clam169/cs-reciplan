@@ -36,7 +36,6 @@ namespace RecipeApp.Data
 
     public async Task<DayPlan> AddToDayPlanAsync(DayPlan dayplan)
     {
-      Console.WriteLine("CALLING ADD TO DAY PLAN ASYNC");
       _context.DayPlans.Add(dayplan);
       await _context.SaveChangesAsync();
       return dayplan;
@@ -44,10 +43,9 @@ namespace RecipeApp.Data
 
     public async Task<DayPlan> GetDayPlansByUserAndDay(string id, string dayName)
     {
-      Console.WriteLine("CALLING GET DAY PLAN BY USER AND DAY");
       var userId = id;
       var dayplan = _context.DayPlans.Include(dayplan => dayplan.Recipes).Where(d => d.Id == userId && d.Weekday == dayName).FirstOrDefault<DayPlan>();
-      // var dayplan = _context.DayPlans.Include("Recipes").Where(d => d.Id == userId && d.Weekday == dayName).FirstOrDefault<DayPlan>();
+
       return dayplan;
     }
 
@@ -59,7 +57,6 @@ namespace RecipeApp.Data
       {
         foreach (Recipe r in d.Recipes)
         {
-          Console.WriteLine(r.Title);
           recipeList.Add(r);
         }
       }

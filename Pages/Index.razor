@@ -10,25 +10,10 @@
 <AuthorizeView>
     <Authorized>
         <PageTitle>ReciPlan</PageTitle>
-@* @if (SignInManager.IsSignedIn(User))
-  {
-  <li class="nav-item">
-  <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello
-  @User.Identity?.Name!</a>
-  </li>
-  <li class="nav-item">
-  <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/" method="post">
-  <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-  </form>
-  </li>
-  } *@
 
 <h1>Your Recipes</h1>
 @if (recipes == null || recipes.Count == 0)
-@* {
-  <p><em>Loading...</em></p>
-  }
-  else if (recipes.Count == 0) *@
+
 {
 
   <h3>Add your First Recipe</h3>
@@ -70,10 +55,6 @@ else
     </NotAuthorized>
 </AuthorizeView>
 
-
-
-
-
 @code {
   int? recipeId;
   string? title;
@@ -84,12 +65,7 @@ else
   string? userId;
 
   List<Recipe>? recipes;
-
-
-
-
   [CascadingParameter] private Task<AuthenticationState> authenticationStateTask { get; set; }
-
 
   protected override async Task OnInitializedAsync()
   {
@@ -140,12 +116,5 @@ else
   {
     HideForm = !HideForm;
   }
-  @* public async Task<IActionResult> GetId()
-    {
-    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier) // will give the user's userId
-    var userName = User.FindFirstValue(ClaimTypes.Name) // will give the user's userName
 
-    ApplicationUser applicationUser = await _userManager.GetUserAsync(User);
-    string userEmail = applicationUser?.Email; // will give the user's Email
-    } *@
 }

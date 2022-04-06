@@ -47,27 +47,20 @@
     }
     protected async Task AddToDay()
     {
-        Console.WriteLine("CALLING ADD TO DAY.");
         var userId = await getUserId();
 
         var dayPlan = await weekPlanService.GetDayPlansByUserAndDay(userId, weekday);
-        Console.WriteLine("dumb ", dayPlan);
 
         if (dayPlan != null)
         {
-            Console.WriteLine("DAYPLAN EXISTS");
-
             await weekPlanService.AddRecipToExistingDayPlan(userId, weekday, recipe);
         }
         else
         {
-            Console.WriteLine("DAY PLAN FUCKING DOES NOT EXISTS AKA NUUUUULLLLLL");
             DayPlan d = new DayPlan()
             {
-                @* Id = await getUserId(), *@
                 Id = userId,
                 Weekday = weekday,
-                @* Recipes = Array.Empty<Recipe>(), *@
                 Recipes = new List<Recipe>() { recipe }
             };
 
