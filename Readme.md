@@ -1,5 +1,10 @@
 # Installation Instructions
 
+## Prerequisites
+
+- Dotnet
+  - install dotnet here : <https://dotnet.microsoft.com/en-us/download/dotnet/6.0>
+
 ## 1. Clone repository
 
 - In a terminal window, run this command: `git clone https://github.com/csharpDeathCoders/SimpleRecipeApp.git`
@@ -8,6 +13,14 @@
 
 - In the terminal window, use `cd SimpleRecipeApp` to go into the app's root directory.
 - Run the command `dotnet build`
+
+## 3. Create/update the database
+
+- Run the command `dotnet-ef database update` or `dotnet ef database update`
+
+## 4. Run the app
+
+- Run the command `dotnet run`
 
 # Github Repository URL:
 
